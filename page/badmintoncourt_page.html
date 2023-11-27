@@ -6,11 +6,28 @@
   <style>
     body {
       background-color: #ffffcc; /* Yellow background color */
+      margin-top: 100px; /* Add margin below the fixed header */
     }
     header {
       background-color: #ffcc00; /* Yellow header color */
       padding: 10px;
       text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000; /* Set a higher z-index to ensure it's above other elements */
+    }
+    header a {
+      margin-right: 20px;
+      text-decoration: none;
+      color: black;
+    }
+    header img {
+      max-height: 40px;
     }
     #announcement-box {
       border: 1px solid #ccc;
@@ -20,8 +37,11 @@
       float: right;
     }
     #court-image {
-      max-width: 100%;
-      height: auto;
+      background-size: cover;
+      color: white;
+      text-align: left;
+      padding: 50px;
+      margin-top: 20px; /* Adjust margin as needed */
     }
     .court-selection {
       display: flex;
@@ -39,7 +59,12 @@
 </head>
 <body>
 <header>
-  <h1>BADMINTON COURT RESERVATION</h1>
+  <a href="#"><img src="../img/UUM_logo.png" alt="Logo"></a>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">My Booking</a>
+    <a href="#">My Profile</a>
+  </nav>
 </header>
 
 <div id="announcement-box">
@@ -48,7 +73,7 @@
 </div>
 
 <a href="#">
-  <img id="court-image" src="path/to/your/court/image.jpg" alt="BADMINTON COURT">
+  <img id="court-image" src="../img/badminton_02.png" alt="BADMINTON COURT">
 </a>
 
 <div class="court-selection">
@@ -56,6 +81,11 @@
   <div class="court-option" onclick="selectCourt(1)">Court 1</div>
   <div class="court-option" onclick="selectCourt(2)">Court 2</div>
   <div class="court-option" onclick="selectCourt(3)">Court 3</div>
+  <div class="court-option" onclick="selectCourt(4)">Court 4</div>
+  <div class="court-option" onclick="selectCourt(5)">Court 5</div>
+  <div class="court-option" onclick="selectCourt(6)">Court 6</div>
+  <div class="court-option" onclick="selectCourt(7)">Court 7</div>
+  <div class="court-option" onclick="selectCourt(8)">Court 8</div>
   <!-- Add more courts as needed -->
 </div>
 
@@ -74,4 +104,3 @@
 </script>
 </body>
 </html>
-
