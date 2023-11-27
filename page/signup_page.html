@@ -1,101 +1,99 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up - Sports Court Reservation</title>
+  <title>Sign Up</title>
   <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
+        font-family: Arial, sans-serif;
+        background: url('images/register.jpeg');
+        margin: 0;
     }
-    .signup-container {
-      width: 300px;
-      margin: 50px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .navbar {
+        background-color: white;
+        overflow: hidden;
+        padding: 15px;
+        text-align: center;
+        color: #ffcc00;
     }
-    .signup-container h2 {
-      text-align: center;
-      margin-bottom: 20px;
+
+    .navbar h1 {
+        margin: 0;
     }
-    .form-field {
-      margin-bottom: 10px;
+
+    .container {
+        max-width: 400px;
+        margin: 20px auto; /* Updated margin for spacing below the navbar */
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        background: white;
     }
-    .form-field label {
-      display: block;
-      margin-bottom: 5px;
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
     }
-    .form-field input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+
+    button {
+        background-color: #ffcc00;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
     }
-    .form-field input[type="checkbox"] {
-      display: inline-block;
+
+    button:hover {
+        opacity: 0.8;
     }
-    .form-field button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-      background-color: #5cb85c;
-      color: white;
-      cursor: pointer;
+
+    .form-footer {
+        margin-top: 20px;
+        text-align: center;
     }
-    .form-field button:hover {
-      background-color: #4cae4c;
-    }
-    .login-link {
-      text-align: center;
-      display: block;
-      margin-top: 20px;
+
+    .form-footer a {
+        text-decoration: none;
+        color: #666;
     }
   </style>
 </head>
+
 <body>
-<div class="signup-container">
-  <h2>Sign up</h2>
-  <form>
-    <div class="form-field">
-      <label for="full-name">Full name</label>
-      <input type="text" id="full-name" placeholder="YOUR FULL NAME">
-    </div>
-    <div class="form-field">
-      <label for="matric-number">Matric Number</label>
-      <input type="text" id="matric-number" placeholder="YOUR MATRIC NO">
-    </div>
-    <div class="form-field">
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="ENTER YOUR EMAIL ADDRESS">
-    </div>
-    <div class="form-field">
-      <label for="username">Username</label>
-      <input type="text" id="username" placeholder="CREATE A USERNAME">
-    </div>
-    <div class="form-field">
-      <label for="password">Create a password</label>
-      <input type="password" id="password" placeholder="************">
-    </div>
-    <div class="form-field">
-      <label for="confirm-password">Confirm password</label>
-      <input type="password" id="confirm-password" placeholder="************">
-    </div>
-    <div class="form-field">
-      <input type="checkbox" id="terms">
-      <label for="terms">By signing up, you agree to our Terms and Conditions</label>
-    </div>
-    <div class="form-field">
-      <button type="submit">Sign up</button>
-    </div>
-    <a href="#" class="login-link">Already have an account? Log in</a>
+<div class="navbar">
+  <h1>Court Reservation System</h1>
+</div>
+
+<div class="container">
+  <h1>Sign Up</h1>
+  <form action="user_create.php" method="post">
+    <input type="text" name="user_id" placeholder="User ID">
+    <input type="text" name="user_name" placeholder="Full name">
+    <input type="email" name="user_email" placeholder="Enter your email address">
+    <input type="password" name="user_password" placeholder="Create a password">
+    <input type="password" name="confirm_password" placeholder="Confirm password">
+    <button type="submit">Sign up</button>
   </form>
+  <div class="form-footer">
+    <p>Already have an account? <a href="login.html">Log in</a></p>
+  </div>
 </div>
 </body>
+
 </html>
