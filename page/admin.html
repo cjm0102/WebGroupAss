@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: url('images/register.jpeg')
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            background: white;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .form-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .form-footer a {
+            text-decoration: none;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form action="">
+            <input type="text"name="id" placeholder="Staff ID">  
+            <input type="text" name="fullname" placeholder="Full name"> 
+            <input type="email" name="email" placeholder="Enter your email address"> 
+            <input type="password" name="password" placeholder="Create a password"> 
+            <input type="password"name="confirm_password" placeholder="Confirm password"> 
+            <button type="submit">Sign up</button> 
+        </form>
+        <div class="form-footer">
+            <p>Already have an account? <a href="#">Log in</a></p>
+        </div>
+    </div>
+</body>
+
+</html>
