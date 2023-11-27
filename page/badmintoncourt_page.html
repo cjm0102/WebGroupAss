@@ -3,8 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <title>BADMINTON COURT RESERVATION</title>
+  <style>
+    body {
+      background-color: #ffffcc; /* Yellow background color */
+    }
+    header {
+      background-color: #ffcc00; /* Yellow header color */
+      padding: 10px;
+      text-align: center;
+    }
+    #announcement-box {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+      float: right;
+    }
+    #court-image {
+      max-width: 100%;
+      height: auto;
+    }
+    .court-selection {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .court-option {
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-<a>Book your Badminton Court here..., but wait lah still developing</a>
+<header>
+  <h1>BADMINTON COURT RESERVATION</h1>
+</header>
+
+<div id="announcement-box">
+  <p>Announcement:</p>
+  <p>This is a placeholder announcement text.</p>
+</div>
+
+<a href="#">
+  <img id="court-image" src="path/to/your/court/image.jpg" alt="BADMINTON COURT">
+</a>
+
+<div class="court-selection">
+  <!-- Repeat the following block for each court option -->
+  <div class="court-option" onclick="selectCourt(1)">Court 1</div>
+  <div class="court-option" onclick="selectCourt(2)">Court 2</div>
+  <div class="court-option" onclick="selectCourt(3)">Court 3</div>
+  <!-- Add more courts as needed -->
+</div>
+
+<!-- Calendar for selected court -->
+<div id="calendar">
+  <!-- Calendar content will be dynamically updated based on the selected court -->
+  Select a court to view the calendar.
+</div>
+
+<script>
+  function selectCourt(courtNumber) {
+    // Handle court selection logic here
+    // Update the calendar content based on the selected court
+    document.getElementById('calendar').innerHTML = 'Calendar for Court ' + courtNumber;
+  }
+</script>
 </body>
 </html>
+
