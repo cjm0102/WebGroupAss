@@ -7,7 +7,7 @@ $user_id = $_POST['user_id'];
 $password = $_POST['password'];
 
 // Query the database
-$sql = "SELECT matricNo, passwordHash FROM users WHERE userID = '$user_id'";
+$sql = "SELECT matricNo, passwordHash FROM users WHERE matricNo = '$user_id'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -18,7 +18,16 @@ if ($result->num_rows > 0) {
     // Verify password
     if (password_verify($password, $hashed_password)) {
         // Password is correct
-        echo "Login successful!";
+        // Check if matricNo is equal to 1
+        if ($matricNo == 1) {
+            // Redirect to admin.html
+            header("Location: ../page/admin.html");
+            
+        } else {
+            // Redirect to index.html (or any other page for non-admin users)
+            header("Location: ../page/index.html");
+            
+        }
     } else {
         // Password is incorrect
         echo "Invalid password.";
