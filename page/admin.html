@@ -7,6 +7,7 @@
     <title>Admin Page</title>
     <!-- Add Bootstrap CSS link here -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <style>
         /* Add your custom styles here */
         .reservation-table {
@@ -20,6 +21,74 @@
 
         .btn-view {
             margin-top: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Adjusted layout for time slots and court numbers */
+        .selection-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .time-slot-list,
+        .court-list {
+            list-style: none;
+            padding: 0;
+            flex: 1;
+        }
+
+        .time-slot-item,
+        .court-item {
+            margin-bottom: 10px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .time-slot-item:hover,
+        .court-item:hover {
+            background-color: #f2f2f2;
+        }
+
+        /* Add styles for selected items */
+        .selected {
+            background-color: #007bff;
+            color: #fff;
         }
     </style>
 </head>
@@ -46,7 +115,12 @@
                 </div>
 
                 <div class="col-auto">
-                    <button type="button" class="btn btn-primary btn-view" onclick="viewReservations()">View Reservations</button>
+                    <button type="button" class="btn btn-primary btn-view" onclick="viewReservations()">View
+                        Reservations</button>
+                    <button type="button" class="btn btn-primary btn-view" onclick="editReservation()">Edit
+                        Reservation</button>
+                    <button type="button" class="btn btn-primary btn-view" onclick="deleteReservation()">Delete
+                        Reservation</button>
                 </div>
             </div>
         </form>
@@ -87,6 +161,106 @@
             // Send the request
             xhr.send(formData);
         }
+
+        function editReservation() {
+            // Get form data
+            var formData = new FormData(document.getElementById("reservationForm"));
+
+            // Send AJAX request to edit_reservation.php
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "../php/edit_reservation.php", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Parse JSON response
+                    var response = JSON.parse(xhr.responseText);
+
+                    // Check if the response status is 'success'
+                    if (response.status === 'success') {
+                        // Display a modal with multi-select dropdowns for time slots and court numbers
+                        var modal = document.createElement("div");
+                        modal.classList.add("modal");
+                        modal.innerHTML = `
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h2>Select Time Slots and Court Numbers</h2>
+                        <div class="selection-container">
+                            <ul class="time-slot-list">
+                                ${response.timeSlots.map(slot => `<li class="time-slot-item" data-slot-id="${slot.slotID}" onclick="toggleSelection(this)">${slot.startTime} - ${slot.endTime}</li>`).join('')}
+                            </ul>
+                            <ul class="court-list">
+                                ${response.courts.map(court => `<li class="court-item" data-court-id="${court.courtID}" onclick="toggleSelection(this)">Court ${court.courtNo}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <button type="button" onclick="submitEditForm()">Submit</button>
+                    </div>
+                `;
+
+                        // Append the modal to the document body
+                        document.body.appendChild(modal);
+
+                        // Display the modal
+                        modal.style.display = "block";
+                    } else {
+                        // Display an error message
+                        alert(response.message);
+                    }
+                }
+            };
+            xhr.send(formData);
+        }
+
+        function toggleSelection(element) {
+            element.classList.toggle("selected");
+        }
+
+        function closeModal() {
+            var modal = document.querySelector(".modal");
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function submitEditForm() {
+            // Get selected time slots and court numbers
+            var selectedTimeSlots = document.querySelectorAll('.time-slot-item.selected');
+            var selectedCourts = document.querySelectorAll('.court-item.selected');
+
+            // Extract IDs from selected items
+            var selectedSlotIDs = Array.from(selectedTimeSlots).map(item => item.dataset.slotId);
+            var selectedCourtIDs = Array.from(selectedCourts).map(item => item.dataset.courtId);
+
+            console.log("Selected Slot IDs:", selectedSlotIDs);
+            console.log("Selected Court IDs:", selectedCourtIDs);
+
+            // Check if at least one time slot and one court number is selected
+            if (!selectedSlotIDs.length || !selectedCourtIDs.length) {
+                console.error("Please select at least one time slot and one court number.");
+                alert("Please select at least one time slot and one court number.");
+                return;
+            }
+
+            // Add selected slots and courts to the form data
+            var formData = new FormData(document.getElementById("reservationForm"));
+            formData.append("selectedSlots", JSON.stringify(selectedSlotIDs));
+            formData.append("selectedCourts", JSON.stringify(selectedCourtIDs));
+
+            // Send AJAX request to insert_booking.php
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "../php/insert_booking.php", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Handle the response as needed
+                    console.log(xhr.responseText);
+                    // Close the modal after successful submission
+                    closeModal();
+                } else {
+                    console.error("Request failed. Status: " + xhr.status);
+                }
+            };
+            xhr.send(formData);
+        }
+
+        
     </script>
 
 </body>
